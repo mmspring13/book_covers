@@ -1,0 +1,209 @@
+:root {
+  --hand-color: #e05760;
+  --liquid-color: #b0dce3;
+  --glass-color: #f6f5f7;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover_wrapper {
+  aspect-ratio: 448/717;
+  width: 896px;
+  background-color: #1e180e;
+  position: relative;
+}
+
+.cover_wrapper::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: url('cover_placeholder.png');
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.character_wrapper {
+  background-image: url('character02.png');
+  aspect-ratio: 699 / 493;
+  width: 216px;
+  background-size: cover;
+  position: relative;
+  transform: translate(443px, 322px);
+  z-index: 10;
+}
+
+.glass_wrapper {
+  z-index: 15;
+  /*height: 400px;*/
+  /*width: 595px;*/
+  opacity: .4;
+  width: 0;
+  height: 0; 
+  border-left: 595px solid transparent;
+  border-right: 595px solid transparent;
+  border-bottom: 400px solid #9e8567;
+}
+
+.app {
+  padding: 32px;
+}
+
+.cover {
+  /*width: 600px;*/
+  height: calc(100dvh - 64px);
+  aspect-ratio: 600/938;
+  background-color: rgba(0, 200, 180, .5);
+  position: relative;
+  /*background-color: #000000;*/
+}
+.cover:before {
+  content: '';
+  display: block;
+  background-image: url("cover-ex.jpg");
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .4;
+  z-index: -1;
+}
+
+.title {
+  display: none;
+}
+
+.cover-character {
+  position: absolute;
+  opacity: .4;
+  aspect-ratio: 699 / 493;
+  top: 25%;
+  right: 50%;
+  transform: translate(98%, -29%);
+  width: 123px;
+}
+.cover-character.twitch {
+  /*animation: character-twitch .8s ease-in-out infinite alternate;*/
+}
+.cover-character-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes character-twitch {
+  0% {
+    transform: translate(10px);
+  }
+  100% { transform: translate(98%, -29%); }
+}
+
+.hand {
+  /*width: 526px;*/
+  width: 87.66%;
+  position: absolute;
+  /*opacity: .8;*/
+  right: 0;
+  bottom: -6px;
+  left: 13px;
+  z-index: 15;
+  color: #e66264;
+  /*margin: auto;*/
+}
+
+.glass {
+  width: 391px;
+  color: #f1f1f3;
+  position: absolute;
+  /*opacity: .8;*/
+  top: 135px;
+  right: 40px;
+  z-index: 10;
+  /*display: none;*/
+}
+
+.liquid {
+  width: 278px;
+  position: absolute;
+  color: #add8df;
+  z-index: 15;
+  top: 186px;
+  right: 96px;
+  animation: liquid-shiver .62s ease-in-out infinite alternate;
+}
+
+@keyframes liquid-shiver {
+  0% { rotate: -1.6deg; }
+  100% { rotate: 2deg; }
+  /*50% { translate: -.5px -1.5px; rotate: -1deg; }*/
+  /*100% { translate: 1px 1px; rotate: 1deg; }*/
+}
+
+/* The Glass Shake */
+.glass {
+  /*display: none;*/
+  animation: glass-shiver 0.62s ease-in-out infinite alternate;
+  /*transform-origin: bottom center;*/
+}
+
+@keyframes glass-shiver {
+  0% { rotate: -1.6deg; }
+  100% { rotate: 2deg; }
+  /*100% { translate: .5px -1.5px; rotate: .4deg; }*/
+}
+
+/* The Finger Rotations */
+/* Note: CSS transform-origin on SVGs can be tricky; 
+   we use the existing origins defined in your SVG attributes */
+.full-finger {
+  /*transform-box: fill-box;*/
+  /*transform-origin: center top; */
+  /*animation: finger-twitch 0.58s ease-in-out infinite alternate;*/
+  transition: all .3s;
+}
+
+#full-finger-1,
+#full-finger-5 {
+  animation: guides-finger-twitch 0.62s ease-in-out infinite alternate;
+}
+#full-finger-4 {
+  animation: finger-twitch-4-twitch 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes guides-finger-twitch {
+  0% { rotate: -2.4deg  }
+  100% { rotate: 3.8deg  }
+}
+
+@keyframes finger-twitch-4-twitch {
+  0% { rotate: -12deg; }
+  100% { rotate: 20deg; }
+}
+
+/*#full-finger-1 { animation-delay: 0.1s; }
+#full-finger-2 { animation-delay: 0.3s; }
+#full-finger-3 { animation-delay: 0.0s; }
+#full-finger-4 { animation: finger-twitch-4 0.6s ease-in-out infinite alternate; }
+#full-finger-5 { animation: finger-twitch-5 0.6s ease-in-out infinite alternate; }
+
+@keyframes finger-twitch {
+  0% { rotate: 0deg; }
+  100% { rotate: .8deg; }
+}
+
+@keyframes finger-twitch-5 {
+  0% { rotate: 4deg; }
+  100% { rotate: 10deg; }
+}
+
+@keyframes finger-twitch-4 {
+  0% { rotate: 0deg; }
+  100% { rotate: 20deg; }
+}*/
