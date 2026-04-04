@@ -1,7 +1,11 @@
 :root {
   --hand-color: #e05760;
-  --liquid-color: #b0dce3;
+  --liquid-color: #acd8e1;
   --glass-color: #f6f5f7;
+  --border-color: #09aabf;
+  --decor-color: #195a94;
+  --toothpick-color: #486f7a;
+  --text-color: #faffff;
 }
 
 .app {
@@ -56,15 +60,17 @@
 
 .cover {
   /*width: 600px;*/
-  height: calc(100dvh - 64px);
-  aspect-ratio: 600/938;
-  background-color: rgba(0, 200, 180, .5);
+  aspect-ratio: 300/469;
+  /*background-color: rgba(0, 200, 180, .4);*/
   position: relative;
-  /*background-color: #000000;*/
+  box-shadow: rgb(3 169 244 / 19%) 0px 20px 30px;
+  background-color: #000000;
+  height: calc(100dvh - 64px);
+  min-height: 400px;
 }
 .cover:before {
   content: '';
-  display: block;
+  display: none;
   background-image: url("cover-ex.jpg");
   background-size: cover;
   position: absolute;
@@ -75,9 +81,33 @@
   opacity: .4;
   z-index: -1;
 }
+.cover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--border-color);
+  transform-origin: top; 
+  transform: scaleY(var(--border-scale, 0));
+}
+
+.poster-svg {
+  
+}
 
 .title {
-  display: none;
+  /*display: none;*/
+  position: absolute;
+  text-transform: uppercase;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  bottom: 0;
 }
 
 .cover-character {
@@ -114,7 +144,7 @@
   bottom: -6px;
   left: 13px;
   z-index: 15;
-  color: #e66264;
+  color: var(--hand-color);
   /*margin: auto;*/
 }
 
@@ -136,11 +166,16 @@
   z-index: 15;
   top: 186px;
   right: 96px;
-  animation: liquid-shiver .62s ease-in-out infinite alternate;
+}
+
+#liquid-path {
+  /*animation: liquid-shiver .62s ease-in-out infinite alternate;*/
+  transform-origin: center center;
+  transform-box: fill-box;
 }
 
 @keyframes liquid-shiver {
-  0% { rotate: -1.6deg; }
+  0% { rotate: -2.4deg; }
   100% { rotate: 2deg; }
   /*50% { translate: -.5px -1.5px; rotate: -1deg; }*/
   /*100% { translate: 1px 1px; rotate: 1deg; }*/
@@ -149,12 +184,12 @@
 /* The Glass Shake */
 .glass {
   /*display: none;*/
-  animation: glass-shiver 0.62s ease-in-out infinite alternate;
-  /*transform-origin: bottom center;*/
+  /*animation: glass-shiver 0.62s ease-in-out infinite alternate;*/
+  transform-origin: bottom center;
 }
 
 @keyframes glass-shiver {
-  0% { rotate: -1.6deg; }
+  0% { rotate: -2.6deg; }
   100% { rotate: 2deg; }
   /*100% { translate: .5px -1.5px; rotate: .4deg; }*/
 }
@@ -169,12 +204,17 @@
   transition: all .3s;
 }
 
+/*.text-effect {
+  transform-origin: center;
+  transform-box: fill-box;
+}*/
+
 #full-finger-1,
 #full-finger-5 {
-  animation: guides-finger-twitch 0.62s ease-in-out infinite alternate;
+  /*animation: guides-finger-twitch 0.62s ease-in-out infinite alternate;*/
 }
 #full-finger-4 {
-  animation: finger-twitch-4-twitch 1.2s ease-in-out infinite alternate;
+  /*animation: finger-twitch-4-twitch 1.2s ease-in-out infinite alternate;*/
 }
 
 @keyframes guides-finger-twitch {
@@ -201,9 +241,9 @@
 @keyframes finger-twitch-5 {
   0% { rotate: 4deg; }
   100% { rotate: 10deg; }
-}
+}*/
 
 @keyframes finger-twitch-4 {
   0% { rotate: 0deg; }
   100% { rotate: 20deg; }
-}*/
+}
