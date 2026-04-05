@@ -21,7 +21,6 @@ const animateBorderCover = () => {
 
 const textEffectAndSwipeImageByScroll = () => {
   const masterTl = gsap.timeline({ paused: true });
-  const scrollTl = gsap.timeline({ paused: true });
   const textTl = gsap.timeline({ paused: true });
 
   textTl.to(".text-effect", {
@@ -44,7 +43,7 @@ const textEffectAndSwipeImageByScroll = () => {
       if (ttlp < 1) {
         gsap.to(textTl, { 
           progress: "+=0.1", 
-          duration: 0.8, 
+          duration: 0.64, 
           overwrite: "auto" 
         });
       }
@@ -61,14 +60,14 @@ const textEffectAndSwipeImageByScroll = () => {
       if (textTl.progress() < 1) {
         gsap.to(textTl, { 
           progress: "-=0.1", 
-          duration: 0.8, 
+          duration: 0.6, 
           overwrite: "auto"
         });
       }
       if(ttlp > 0.72) {
         gsap.to(masterTl, { 
           progress: "-=0.1", 
-          duration: 0.6, 
+          duration: 0.64, 
           overwrite: "auto" 
         });
       }
@@ -89,40 +88,51 @@ const animateNoise = () => {
 };
 
 const animateDecor = () => {
-  let duration = 2.4;
-  gsap.to("#decor-item", {
+  let duration = 7.1;
+  let ease = 'linear';
+  gsap.fromTo("#decor-item", {
     attr: {
-      transform: 'rotate(24)',
+      transform: 'rotate(-16)',
     },
-    duration: 3.2,
-    ease: "linear",
-    repeat: -1,
-    yoyo: true,
-  });
-  gsap.to("#decor-item-2", {
-    x: 90,
+  }, {
+    attr: {
+      transform: 'rotate(56)',
+    },
     duration,
-    ease: "linear",
+    yoyo: true,
+    ease,
+    repeat: -1,
+  });
+  gsap.to("#decor-item-wrapper", {
+    x: 332,
+    y: 80,
+    duration,
+    ease,
     repeat: -1,
     yoyo: true,
   });
-
   gsap.fromTo("#toothpick",
     {
       attr: {
-        transform: 'rotate(26)',
+        transform: 'rotate(0)',
+      },
+    },
+    {
+      attr: {
+        transform: 'rotate(54.6)',
       },
       duration,
-      ease: "linear",
+      ease,
       repeat: -1,
       yoyo: true,
     }
   );
   gsap.to("#toothpick-path",
     {
-      x: 150,
+      x: 380,
+      y: 20,
       duration,
-      ease: "linear",
+      ease,
       repeat: -1,
       yoyo: true,
     }
@@ -192,16 +202,16 @@ const animateLiquid = () => {
   );
 };
 
-const showCharacter = () => {
+const animateCharacter = () => {
   gsap.fromTo('#character-paths', {
-    y: 44,
+    y: 26,
     x: -4,
     opacity: .3,
   }, {
-    y: -62,
-    x: 8,
+    y: -86,
+    x: 7,
     opacity: 1,
-    duration: 2,
+    duration: 1.8,
     ease: 'linear',
     yoyo: true,
     repeat: -1,
@@ -210,7 +220,7 @@ const showCharacter = () => {
 
 
 let start = () => {
-  showCharacter();
+  animateCharacter();
   textEffectAndSwipeImageByScroll();
   animateHand();
   animateLiquid();
