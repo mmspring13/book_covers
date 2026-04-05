@@ -31,16 +31,25 @@
 }
 
 .cover {
-  aspect-ratio: 300/469;
-  position: relative;
-  box-shadow: rgb(3 169 244 / 19%) 0px 20px 30px;
-  background-color: #000000;
-  height: calc(100dvh - 64px);
+  height: auto;
   min-height: 400px;
-
+  width: auto;
+  aspect-ratio: 300 / 469;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  background-color: #000000;
+  box-shadow: 0 20px 30px rgb(3 169 244 / 19%);
+  overflow: hidden;
   --opacity-val: 0;
   --blur-val: 20px;
 }
+@media (min-width: 768px) {
+  .cover {
+    height: calc(100dvh - 64px);
+  }
+}
+
 .cover:before {
   content: '';
   display: block;
