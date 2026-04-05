@@ -1,118 +1,224 @@
 import './style.css'
 import './app.css'
-
 import { gsap } from "gsap";
-
-// import { CustomEase } from "gsap/CustomEase";
     
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 import { TextPlugin } from "gsap/TextPlugin";
+import { Observer } from "gsap/Observer";
 
-gsap.registerPlugin(DrawSVGPlugin,MotionPathPlugin,MorphSVGPlugin,TextPlugin);
+gsap.registerPlugin(DrawSVGPlugin,MotionPathPlugin,MorphSVGPlugin,TextPlugin,Observer);
 
-const liquidStates = [
-  // "M0,0l278,0c0.669,0.275 -84.784,129.45 -115,154c-12.935,10.51 -37.885,11.446 -50,0c-27.167,-25.667 -113,-154 -113,-154",
-  "M-4.767,-15.89L278,0C278.669,0.275 193.216,129.45 163,154C150.065,164.51 125.115,165.446 113,154C85.833,128.333 -4.767,-15.89 -4.767,-15.89Z",
-  "M0,0L286.899,-13.983C287.568,-13.708 193.216,129.45 163,154C150.065,164.51 125.115,165.446 113,154C85.833,128.333 0,0 0,0Z"
-];
+const animateBorderCover = () => {
+  gsap.to('#cover', {
+    "--border-scale": 1,
+    duration: 1,
+    fill: 'forwards',
+    ease: "linear"
+  });
+};
 
-// gsap.to("#liquid-path", {
-//   keyframes: liquidStates.map(path => ({
-//     morphSVG: path,
-//     duration: 0.72,
-//     ease: "linear"
-//   })),
-//   repeat: -1,
-//   yoyo: true
-// });
+const textEffectAndSwipeImageByScroll = () => {
+  const masterTl = gsap.timeline({ paused: true });
+  const scrollTl = gsap.timeline({ paused: true });
+  const textTl = gsap.timeline({ paused: true });
 
-gsap.to(".cover", {
-  "--border-scale": 1, // Animates from 0 to 1
-  duration: .5,
-  ease: "power2.out"
-});
+  textTl.to(".text-effect", {
+    "--blur-val": "0",
+    "--opacity-val": 1,
+    duration: 1,
+    ease: "linear"
+  });
 
-// gsap.from(".text-effect", {
-//   duration: 1.5,
-//   opacity: 0,
-//   filter: "blur(10px)",
-//   y: 20,             // Optional: subtle slide up
-//   ease: "power3.out"
-// });
+  masterTl.to("#cover", {
+    "--blur-val": "0",
+    "--opacity-val": 1,
+    duration: 1
+  });
 
-// gsap.set('.text-seffect', {
-//   transformOrigin: "50% 50%", 
-//   transformBox: "fill-box",     // Crucial: Tells SVG to use the element's box, not the whole SVG canvas
-//   // alignmentBaseline: "middle", // Helps align the internal coordinate system
-//   // dominantBaseline: "central"  // Vertically centers the text anchor
-// });
-gsap.fromTo(".text-effect", 
-  {
-    opacity: 0,
-    // transform: "matrix(1,0,0,1,0,0)",
-    // scale: 0.5,            // Starts small (in the distance)
-    immediateRender: true,
-    filter: "blur(20px)",  // Heavy blur for depth of field
-    // zIndex: -1              // At the back
-  }, 
-  {
-    duration: 7.5,
-    // transform: "matrix(1,0,0,1,0,0)",
+  Observer.create({
+    type: "wheel,touch",
+    onDown: () => {
+      let ttlp = textTl.progress();
+      if (ttlp < 1) {
+        gsap.to(textTl, { 
+          progress: "+=0.1", 
+          duration: 0.8, 
+          overwrite: "auto" 
+        });
+      }
+      if(ttlp > 0.72) {
+        gsap.to(masterTl, { 
+          progress: "+=0.1", 
+          duration: 0.6, 
+          overwrite: "auto" 
+        });
+      }
+    },
+    onUp: () => {
+      let ttlp = textTl.progress();
+      if (textTl.progress() < 1) {
+        gsap.to(textTl, { 
+          progress: "-=0.1", 
+          duration: 0.8, 
+          overwrite: "auto"
+        });
+      }
+      if(ttlp > 0.72) {
+        gsap.to(masterTl, { 
+          progress: "-=0.1", 
+          duration: 0.6, 
+          overwrite: "auto" 
+        });
+      }
+    },
+    tolerance: 10,
+    preventDefault: true
+  });
+};
+
+const animateNoise = () => {
+  gsap.to("#roughpaper feTurbulence", {
+    attr: { seed: 100 },
+    duration: 4,
+    repeat: -1,
+    yoyo: true,
+    ease: "steps(12)"
+  });
+};
+
+const animateDecor = () => {
+  let duration = 2.4;
+  gsap.to("#decor-item", {
+    attr: {
+      transform: 'rotate(24)',
+    },
+    duration: 3.2,
+    ease: "linear",
+    repeat: -1,
+    yoyo: true,
+  });
+  gsap.to("#decor-item-2", {
+    x: 90,
+    duration,
+    ease: "linear",
+    repeat: -1,
+    yoyo: true,
+  });
+
+  gsap.fromTo("#toothpick",
+    {
+      attr: {
+        transform: 'rotate(26)',
+      },
+      duration,
+      ease: "linear",
+      repeat: -1,
+      yoyo: true,
+    }
+  );
+  gsap.to("#toothpick-path",
+    {
+      x: 150,
+      duration,
+      ease: "linear",
+      repeat: -1,
+      yoyo: true,
+    }
+  );
+};
+
+const animateHand = () => {
+  gsap.fromTo("#full-finger-1",
+    { rotate: -2.4, svgOrigin: "283px 200px" },
+    { rotate: 3.8, duration: 1.6, ease: "power1.out", repeat: -1, yoyo: true }
+  );
+  gsap.fromTo("#full-finger-5",
+    { rotate: -2.4, svgOrigin: "467px 247px" },
+    { rotate: 3.8, duration: 1.6, ease: "power1.out", repeat: -1, yoyo: true }
+  );
+
+  gsap.fromTo("#full-finger-2",
+    { rotate: -2.4, svgOrigin: '228px 228px' },
+    { 
+      rotate: 3.8, 
+      duration: 1.4, 
+      stagger: 0.2,
+      ease: "power1.inOut", 
+      repeat: -1, 
+      yoyo: true 
+    }
+  );
+  gsap.fromTo("#full-finger-3",
+    { rotate: -1.6, svgOrigin: '179px 253px' },
+    { 
+      rotate: 2.8, 
+      duration: 2, 
+      stagger: 0.2,
+      ease: "power1.inOut", 
+      repeat: -1, 
+      yoyo: true 
+    }
+  );
+
+  gsap.fromTo("#full-finger-4",
+    {
+      svgOrigin: '153px 287px',
+      rotate: -16,
+    },
+    {
+      rotate: 20,
+      duration: 3.4,
+      ease: "power1.linear",
+      repeat: -1,
+      yoyo: true,
+      startAt: { rotate: -12 }
+    }
+  );
+};
+
+const animateGlass = () => {
+  gsap.fromTo("#glass", 
+    { rotate: -2.6, transformOrigin: 'center bottom' },
+    { rotate: 2, duration: 1.6, ease: "linear", repeat: -1, yoyo: true }
+  );
+};
+
+const animateLiquid = () => {
+  gsap.fromTo("#liquid-path",
+    { x: -12, rotate: -5.2, transformOrigin: '50% 50%' },
+    { x: 12, rotate: 6, duration: 1.6, ease: "linear", repeat: -1, yoyo: true }
+  );
+};
+
+const showCharacter = () => {
+  gsap.fromTo('#character-paths', {
+    y: 44,
+    x: -4,
+    opacity: .3,
+  }, {
+    y: -62,
+    x: 8,
     opacity: 1,
-    // scale: 1,            // Scales up to normal size
-    filter: "blur(0px)",   // Clears up as it "hits" the focus plane
-    // zIndex: 20,            // Moves to the front
-    ease: "power2.out",
-    // force3D: true             // Uses GPU to keep the center point stable
-  }
-);
-
-// Animation for fingers 1 and 5
-gsap.set('#full-finger-1', {
-  // svgOrigin: "467px 247px",
-  rotate: '10deg',
-  // transformOrigin: "50% 100%" // Adjust percentages to align with the knuckle
-});
-// gsap.to("#full-finger-1, #full-finger-5", {
-//   rotate: 3.8,
-//   duration: 0.62,
-//   ease: "power1.inOut", // Equivalent to ease-in-out
-//   repeat: -1,           // Infinite loop
-//   yoyo: true,             // Alternate direction
-//   startAt: { rotate: -2.4 } // Sets the initial starting point
-// });
-
-// Animation for finger 4
-gsap.to("#full-finger-4", {
-  rotate: 20,
-  duration: 1.2,
-  ease: "power1.inOut",
-  repeat: -1,
-  yoyo: true,
-  startAt: { rotate: -12 }
-});
-
-gsap.to(".poster-svg", { 
-  opacity: 0, 
-  duration: 4, 
-  ease: "power1.out" 
-});
-
-setTimeout(() => {
-  let ch = document.querySelector(".cover-character");
-  ch.classList.add("twitch");
-  // let f5 = document.getElementById("full-finger-5");
-  // f5.classList.add("flap");
-}, 0.76 * 1000);
+    duration: 2,
+    ease: 'linear',
+    yoyo: true,
+    repeat: -1,
+  })
+};
 
 
-
-// hand
-
-
-
-
+let start = () => {
+  showCharacter();
+  textEffectAndSwipeImageByScroll();
+  animateHand();
+  animateLiquid();
+  animateGlass();
+  animateDecor();
+  animateNoise();
+  animateBorderCover();
+};
+start();
 
 
