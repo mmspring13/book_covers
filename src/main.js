@@ -10,6 +10,17 @@ import { Observer } from "gsap/Observer";
 
 gsap.registerPlugin(DrawSVGPlugin,MotionPathPlugin,MorphSVGPlugin,TextPlugin,Observer);
 
+const animateStart = () => {
+  gsap.fromTo('#app-cover', {
+    opacity: 0,
+  }, {
+    opacity: 1,
+    duration: 1,
+    fill: 'forwards',
+    ease: "linear"
+  })
+};
+
 const animateBorderCover = () => {
   gsap.to('#cover', {
     "--border-scale": 1,
@@ -229,6 +240,7 @@ let start = () => {
   animateDecor();
   animateNoise();
   animateBorderCover();
+  animateStart();
 };
 start();
 

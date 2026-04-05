@@ -75,6 +75,10 @@
   transform: scaleY(var(--border-scale, 0));
 }
 
+#app-cover {
+  opacity: 0;
+}
+
 .hand {
   width: 87.66%;
   position: absolute;
