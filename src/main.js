@@ -54,14 +54,14 @@ const textEffectAndSwipeImageByScroll = () => {
       if (ttlp < 1) {
         gsap.to(textTl, { 
           progress: "+=0.1", 
-          duration: 0.64, 
+          duration: 0.46, 
           overwrite: "auto" 
         });
       }
       if(ttlp > 0.72) {
         gsap.to(masterTl, { 
           progress: "+=0.1", 
-          duration: 0.6, 
+          duration: 0.4, 
           overwrite: "auto" 
         });
       }
@@ -71,14 +71,14 @@ const textEffectAndSwipeImageByScroll = () => {
       if (textTl.progress() < 1) {
         gsap.to(textTl, { 
           progress: "-=0.1", 
-          duration: 0.6, 
+          duration: 0.4, 
           overwrite: "auto"
         });
       }
       if(ttlp > 0.72) {
         gsap.to(masterTl, { 
           progress: "-=0.1", 
-          duration: 0.64, 
+          duration: 0.46, 
           overwrite: "auto" 
         });
       }
