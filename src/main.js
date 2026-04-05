@@ -73,7 +73,8 @@ const textEffectAndSwipeImageByScroll = () => {
       }
     },
     tolerance: 10,
-    preventDefault: true
+    preventDefault: true,
+    dragClickables: false,  // Ensures buttons still work
   });
 };
 
