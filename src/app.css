@@ -11,25 +11,8 @@
 .app {
   display: flex;
   align-items: center;
+  padding: 32px;
   justify-content: center;
-}
-
-.cover_wrapper {
-  aspect-ratio: 448/717;
-  width: 896px;
-  background-color: #1e180e;
-  position: relative;
-}
-
-.cover_wrapper::after {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-image: url('cover_placeholder.png');
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 #toothpick-path,
@@ -45,30 +28,6 @@
 
 #toothpick-path {
   transform-origin: 28% 28%;
-}
-
-.character_wrapper {
-  background-image: url('character02.png');
-  aspect-ratio: 699 / 493;
-  width: 216px;
-  background-size: cover;
-  position: relative;
-  transform: translate(443px, 322px);
-  z-index: 10;
-}
-
-.glass_wrapper {
-  z-index: 15;
-  opacity: .4;
-  width: 0;
-  height: 0;
-  border-left: 595px solid transparent;
-  border-right: 595px solid transparent;
-  border-bottom: 400px solid #9e8567;
-}
-
-.app {
-  padding: 32px;
 }
 
 .cover {
@@ -87,7 +46,7 @@
   display: block;
   opacity: var(--opacity-val);
   filter: blur(var(--blur-val));
-  background-image: url("cover-ex.jpg");
+  background-image: url("/cover-ex.jpg");
   background-size: cover;
   position: absolute;
   top: 0;
@@ -124,6 +83,7 @@
   top: 135px;
   right: 40px;
   z-index: 10;
+  transform-origin: bottom center;
 }
 
 .liquid {
@@ -138,10 +98,6 @@
 #liquid-path {
   transform-origin: center center;
   transform-box: fill-box;
-}
-
-.glass {
-  transform-origin: bottom center;
 }
 
 .text-effect {
